@@ -1,0 +1,30 @@
+﻿@page "/demo1"
+<h3 class="test">Demo1 : Les bindings</h3>
+
+<p>@MyValue</p>
+@*
+    One-way binding : Lecture des propriétés
+*@
+
+<p>
+    <input type="number" @bind-value="MyValue" />
+</p>
+
+@*
+    Two-way binding : Lecture + Ecriture de la propriétés
+*@
+
+<p>
+    <button @onclick="Increment" disabled="@(!Check())">+</button> <br />
+    <button @onclick="@(() => ModifValue(MyProperty))">Modif</button>
+</p>
+@*
+    Event binding : Execution de méthode c# sur ordre d'un event JS
+    Attribute binding : Liaison d'une propriété ou du résultat d'une méthode à un attribut html
+*@
+
+
+
+@code {
+    public int MyProperty { get; set; } = 5;
+}

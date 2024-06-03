@@ -1,0 +1,14 @@
+﻿@page "/demo2"
+<h3>Demo2</h3>
+<p>@MyValue</p>
+<button @onclick="SimulateRender">Render</button>
+
+<hr />
+
+<EnfantDemo2 ValueFromCaller="MyValue"
+             MyResponseEvent="ReceptionDeEnfant" />
+
+<h3>Réponse de l'enfant : @ReponseDeEnfant</h3>
+@code {
+
+}
