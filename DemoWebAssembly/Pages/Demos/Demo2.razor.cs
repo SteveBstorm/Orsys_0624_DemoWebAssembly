@@ -2,7 +2,7 @@
 
 namespace DemoWebAssembly.Pages.Demos
 {
-    public partial class Demo2
+    public partial class Demo2 : ComponentBase
     {
         public int MyValue { get; set; }
         protected override void OnInitialized()

@@ -1,0 +1,9 @@
+﻿@page "/demo4"
+<h3>Demo4</h3>
+<NavLink href="cible/42">
+    Vers cible
+</NavLink>
+<br />
+<button @onclick="@(() => Redirect(500))">Vers cible</button> 
+<button @onclick="@(() => Nav.NavigateTo("/cible/404"))">Vers cible</button> 
+    

@@ -10,8 +10,16 @@ namespace DemoWebAssembly.Pages.Demos
         [Parameter]
         public EventCallback<string> MyResponseEvent { get; set; }
 
+        public async override Task SetParametersAsync(ParameterView parameters)
+        {
+            await Console.Out.WriteLineAsync("test");
+            Console.WriteLine(parameters.GetValueOrDefault<int>(nameof(ValueFromCaller)));
+            await base.SetParametersAsync(parameters);
+        }
+
         protected override async Task OnParametersSetAsync()
         {
+            await Console.Out.WriteLineAsync("param : " + ValueFromCaller);
             ValueFromCaller *= 2;
            
         }
