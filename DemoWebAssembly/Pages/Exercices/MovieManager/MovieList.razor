@@ -1,0 +1,36 @@
+﻿@page "/movie"
+@using DemoWebAssembly.Models
+
+<div>
+    <MovieCreate NotifyNewMovie="NewMovieReceived" /> 
+</div>
+
+<h3>MovieList</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Titre</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Movie m in Liste)
+        {
+            <tr>
+                <td>@m.Title</td>
+                <td><button class="btn btn-info btn-sm" @onclick="@(() => SelectId(m.Id))">Détails</button></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<hr />
+@if (SelectedId > 0)
+{
+    <MovieDetail MovieId="@SelectedId" />
+
+}
+
+@code {
+
+}
