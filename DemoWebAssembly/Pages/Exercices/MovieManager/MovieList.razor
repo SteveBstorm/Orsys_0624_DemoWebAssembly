@@ -1,35 +1,36 @@
 ﻿@page "/movie"
 @using DemoWebAssembly.Models
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize]
+        <div>
+            <MovieCreate NotifyNewMovie="NewMovieReceived" />
+        </div>
 
-<div>
-    <MovieCreate NotifyNewMovie="NewMovieReceived" /> 
-</div>
+        <h3>MovieList</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Titre</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Movie m in Liste)
+                {
+                    <tr>
+                        <td>@m.Title</td>
+                        <td><button class="btn btn-info btn-sm" @onclick="@(() => SelectId(m.Id))">Détails</button></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
 
-<h3>MovieList</h3>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Titre</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (Movie m in Liste)
+        <hr />
+        @if (SelectedId > 0)
         {
-            <tr>
-                <td>@m.Title</td>
-                <td><button class="btn btn-info btn-sm" @onclick="@(() => SelectId(m.Id))">Détails</button></td>
-            </tr>
+            <MovieDetail MovieId="@SelectedId" />
+
         }
-    </tbody>
-</table>
-
-<hr />
-@if (SelectedId > 0)
-{
-    <MovieDetail MovieId="@SelectedId" />
-
-}
 
 @code {
 

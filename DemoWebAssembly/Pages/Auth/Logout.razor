@@ -1,0 +1,15 @@
+﻿@page "/logout"
+@using DemoWebAssembly.Security
+@using Microsoft.AspNetCore.Components.Authorization
+@attribute [AllowAnonymous]
+@inject NavigationManager Nav
+@inject IJSRuntime js
+@inject AuthenticationStateProvider provider
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        await js.InvokeVoidAsync("localStorage.removeItem", "token");
+        ((MyStateProvider)provider).NotifyUserChanged();
+        Nav.NavigateTo("/");
+    }
+}
