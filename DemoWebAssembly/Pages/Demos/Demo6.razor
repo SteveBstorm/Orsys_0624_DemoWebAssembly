@@ -1,0 +1,27 @@
+﻿@page "/demo6"
+
+<h3>Demo6</h3>
+
+<EditForm Model="newMovie" OnValidSubmit="onValidSubmit" OnInvalidSubmit="onSubmit">
+    <ObjectGraphDataAnnotationsValidator />
+    @* <DataAnnotationsValidator /> *@
+    <div>
+        Titre : <InputText @bind-Value="newMovie.Title" />
+        <ValidationMessage For="@(() => newMovie.Title)" />
+    </div> 
+    <div>
+        Realisateur : <InputText @bind-Value="newMovie.Realisator.Firstname" placeholder="Prénom"/>
+        <InputText @bind-Value="newMovie.Realisator.Lastname" placeholder="Nom de famille" />
+        <ValidationMessage For="@(() => newMovie.Realisator.Lastname)" />
+    </div>
+    <div>
+        Année de sortie : <InputNumber @bind-Value="newMovie.ReleaseYear" />
+        <ValidationMessage For="@(() => newMovie.ReleaseYear)" />
+    </div>
+    <div>
+        Synopsis : <InputTextArea @bind-Value="newMovie.Synopsis" />
+        <ValidationMessage For="@(() => newMovie.Synopsis)" />
+    </div>
+    <button type="submit" class="btn btn-success">Valider</button>
+    <ValidationSummary />
+</EditForm>
