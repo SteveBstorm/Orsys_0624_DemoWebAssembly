@@ -7,14 +7,15 @@ namespace DemoWebAssembly.Pages.Exercices.MovieManager
     {
         [Inject]
         public MovieService Service { get; set; }
+
         [Parameter]
         public int MovieId { get; set; }
 
         public Movie CurrentMovie { get; set; }
 
-        protected override void OnParametersSet()
+        protected override async Task OnParametersSetAsync()
         {
-            CurrentMovie = Service.GetById(MovieId);
+            CurrentMovie = await Service.GetById(MovieId);
         }
     }
 }

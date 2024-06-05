@@ -27,11 +27,11 @@ namespace DemoWebAssembly.Pages.Exercices.MovieManager
         }
         public async Task ValidSubmit()
         {
-            Service.Add(newMovie);
+            await Service.Add(newMovie);
             //Client = Factory.CreateClient("withToken");
             //string token = await js.InvokeAsync<string>("localStorage.getItem", "token");
             //Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer",token);
-            await Client.PostAsJsonAsync("movie", newMovie);
+            //await Client.PostAsJsonAsync("movie", newMovie);
             newMovie = new Movie();
             await NotifyNewMovie.InvokeAsync();
         }

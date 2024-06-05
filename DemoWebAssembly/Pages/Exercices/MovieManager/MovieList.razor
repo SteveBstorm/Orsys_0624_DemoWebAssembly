@@ -2,35 +2,38 @@
 @using DemoWebAssembly.Models
 @using Microsoft.AspNetCore.Authorization
 @attribute [Authorize]
-        <div>
-            <MovieCreate NotifyNewMovie="NewMovieReceived" />
-        </div>
+<div>
+    <MovieCreate NotifyNewMovie="NewMovieReceived" />
+</div>
+@if (Liste != null)
+{
 
-        <h3>MovieList</h3>
-        <table class="table">
-            <thead>
+    <h3>MovieList</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Movie m in Liste)
+            {
                 <tr>
-                    <th>Titre</th>
-                    <th>Action</th>
+                    <td>@m.Title</td>
+                    <td><button class="btn btn-info btn-sm" @onclick="@(() => SelectId(m.Id))">Détails</button></td>
                 </tr>
-            </thead>
-            <tbody>
-                @foreach (Movie m in Liste)
-                {
-                    <tr>
-                        <td>@m.Title</td>
-                        <td><button class="btn btn-info btn-sm" @onclick="@(() => SelectId(m.Id))">Détails</button></td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+            }
+        </tbody>
+    </table>
 
-        <hr />
-        @if (SelectedId > 0)
-        {
-            <MovieDetail MovieId="@SelectedId" />
+    <hr />
+    @if (SelectedId > 0)
+    {
+        <MovieDetail MovieId="@SelectedId" />
 
-        }
+    }
+}
 
 @code {
 
