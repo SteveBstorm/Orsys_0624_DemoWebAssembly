@@ -1,18 +1,22 @@
 ﻿@page "/login"
+@using Microsoft.Extensions.Localization
 @attribute [AllowAnonymous]
 
 <h3>Login</h3>
 <EditForm Model="myForm" OnValidSubmit="SubmitLogin">
     <DataAnnotationsValidator />
     <div>
-        Email : <InputText @bind-Value="myForm.Email" />
+        @(login["k_email"]) : <InputText @bind-Value="myForm.Email" />
     </div>
     <div>
-        Password : <InputText @bind-Value="myForm.Password" />
+        @(login["k_pwd"]) : <InputText @bind-Value="myForm.Password" />
     </div>
     <ValidationSummary />
-    <button type="submit">Valider</button>
+    <button type="submit">@(app["k_submit"])</button>
 </EditForm>
 @code {
-
+    [Inject]
+    IStringLocalizer<Login> login { get; set; }
+    [Inject]
+    IStringLocalizer<App> app { get; set; }
 }
