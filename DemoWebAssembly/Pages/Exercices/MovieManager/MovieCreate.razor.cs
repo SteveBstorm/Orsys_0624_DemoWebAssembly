@@ -1,5 +1,6 @@
 ﻿using DemoWebAssembly.Models;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.JSInterop;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
@@ -11,6 +12,7 @@ namespace DemoWebAssembly.Pages.Exercices.MovieManager
         [Inject]
         public MovieService Service { get; set; }
         public Movie newMovie { get; set; }
+
         [Parameter]
         public EventCallback NotifyNewMovie { get; set; }
 
@@ -21,19 +23,29 @@ namespace DemoWebAssembly.Pages.Exercices.MovieManager
         //public IHttpClientFactory Factory { get; set; }
         [Inject]
         public IJSRuntime js { get; set; }
-        protected override void OnInitialized()
+
+        public HubConnection Connection { get; set; }
+
+        protected async override Task OnInitializedAsync()
         {
             newMovie = new Movie();
+
+            //Connection au hub
+            Connection = new HubConnectionBuilder().WithUrl("https://localhost:7170/moviehub").Build();
+            await Connection.StartAsync();
+
         }
         public async Task ValidSubmit()
         {
-            Service.Add(newMovie);
-            //Client = Factory.CreateClient("withToken");
-            //string token = await js.InvokeAsync<string>("localStorage.getItem", "token");
-            //Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer",token);
-            await Client.PostAsJsonAsync("movie", newMovie);
+            //Service.Add(newMovie);
+            ////Client = Factory.CreateClient("withToken");
+            ////string token = await js.InvokeAsync<string>("localStorage.getItem", "token");
+            ////Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer",token);
+            //await Client.PostAsJsonAsync("movie", newMovie);
+            //await NotifyNewMovie.InvokeAsync();
+
+            await Connection.SendAsync("SendMovie", newMovie);
             newMovie = new Movie();
-            await NotifyNewMovie.InvokeAsync();
         }
     }
 }
