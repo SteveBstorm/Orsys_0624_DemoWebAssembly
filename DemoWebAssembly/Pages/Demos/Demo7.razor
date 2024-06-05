@@ -1,0 +1,21 @@
+﻿@page "/demo7"
+<h3>Demo7</h3>
+<div>
+    Votre message : <input type="text" @bind-value="Message" />
+    <button @onclick="SendMessageToHub">Envoyer à tout le monde</button>
+    <button @onclick="JoinGroup">Rejoindre</button>
+    <button @onclick="SendToGroup">Envoyer au groupe</button>
+    <button @onclick="LeaveGroup">Quitter groupe</button>
+    
+</div>
+<hr />
+<ul>
+    @foreach(string m in ChatMessages)
+    {
+        <li>@m</li>
+    }
+</ul>
+
+@code {
+
+}
